@@ -16,6 +16,9 @@ class CreateAccessoiresTable extends Migration
         Schema::create('accessoires', function (Blueprint $table) {
             $table->increments('id');
             $table->string('reference')->nullable();
+            $table->string('modele')->nullable();
+            $table->string('serie')->nullable();
+            $table->string('couleur')->nullable();
             $table->unsignedInteger('produit_id');
             $table->timestamps();
         });
@@ -35,7 +38,7 @@ class CreateAccessoiresTable extends Migration
     public function down()
     {
         Schema::table('accessoires', function (Blueprint $table) {
-            $table->dropForeign(['produits']);
+            $table->dropForeign(['produit_id']);
         });
         Schema::dropIfExists('accessoires');
     }

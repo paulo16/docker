@@ -17,13 +17,22 @@ class CreateServicesTable extends Migration
             $table->increments('id');
             $table->string('nom')->nullable();
             $table->unsignedInteger('produit_id');
+            $table->unsignedInteger('moto_id');
+            $table->text('description')->nullable();
+            $table->unsignedInteger('prix')->nullable();
             $table->timestamps();
         });
 
         Schema::table('services', function (Blueprint $table) {
             $table->foreign('produit_id')->references('id')->on('produits')
-                ->onDelete('cascade')
-                ->onUpdate('cascade');
+            ->onDelete('cascade')
+            ->onUpdate('cascade');
+        });
+
+        Schema::table('services', function (Blueprint $table) {
+            $table->foreign('moto_id')->references('id')->on('motos')
+            ->onDelete('cascade')
+            ->onUpdate('cascade');
         });
     }
 
@@ -35,7 +44,8 @@ class CreateServicesTable extends Migration
     public function down()
     {
         Schema::table('services', function (Blueprint $table) {
-            $table->dropForeign(['produits']);
+            $table->dropForeign(['produit_id']);
+            $table->dropForeign(['moto_id']);
         });
 
         Schema::dropIfExists('services');
