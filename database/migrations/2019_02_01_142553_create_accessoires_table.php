@@ -19,15 +19,10 @@ class CreateAccessoiresTable extends Migration
             $table->string('modele')->nullable();
             $table->string('serie')->nullable();
             $table->string('couleur')->nullable();
-            $table->unsignedInteger('produit_id');
+            $table->unsignedInteger('quantite')->nullable();
             $table->timestamps();
         });
 
-        Schema::table('accessoires', function (Blueprint $table) {
-            $table->foreign('produit_id')->references('id')->on('produits')
-            ->onDelete('cascade')
-            ->onUpdate('cascade');
-        });
     }
 
     /**
@@ -37,9 +32,6 @@ class CreateAccessoiresTable extends Migration
      */
     public function down()
     {
-        Schema::table('accessoires', function (Blueprint $table) {
-            $table->dropForeign(['produit_id']);
-        });
         Schema::dropIfExists('accessoires');
     }
 }

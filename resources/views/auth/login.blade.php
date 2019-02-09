@@ -114,7 +114,7 @@
                                         </form>
 
                                     </div><!-- /.widget-main -->
-
+                                  <!--
                                     <div class="toolbar clearfix">
                                         <div>
                                          @if (Route::has('password.request'))
@@ -131,6 +131,7 @@
                                             <i class="ace-icon fa fa-arrow-right"></i>
                                         </a>
                                     </div>
+                                -->
                                 </div>
                             </div><!-- /.widget-body -->
                         </div><!-- /.login-box -->

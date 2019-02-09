@@ -182,7 +182,8 @@
                                     <ul class="dropdown-menu dropdown-navbar">
                                         <li>
                                             <a href="#" class="clearfix">
-                                                <img src="{{asset('assets/images/avatars/avatar.png')}}" class="msg-photo" alt="Alex's Avatar" />
+                                                <img id="avatar" class="editable img-responsive editable-click editable-empty" 
+                                                src="{{asset('assets/images/avatars/profile-pic.jpg')}}" alt="Avatar">
                                                 <span class="msg-body">
                                                     <span class="msg-title">
                                                         <span class="blue">Alex:</span>
@@ -278,7 +279,12 @@
 
                         <li class="light-blue dropdown-modal">
                             <a data-toggle="dropdown" href="#" class="dropdown-toggle">
-                                <img class="nav-user-photo" src="{{asset('assets/images/avatars/user.jpg')}}" alt="Jason's Photo" />
+                                @if (Auth::check())
+                                <img id="avatar" class="nav-user-photo" src="{{Storage::url(Auth::user()->photo)}}" alt="Avatar">
+                                @else
+                                <img id="avatar" class="nav-user-photo" 
+                                src="{{asset('assets/images/avatars/profile-pic.jpg')}}" alt="Avatar">
+                                @endif
                                 <span class="user-info">
                                     <small>Welcome,</small>
                                     {{ Auth::user()->name }}

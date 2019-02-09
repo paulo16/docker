@@ -36,4 +36,10 @@ class User extends Authenticatable
 
         return $this->belongsTo(Intervention::class);
     }
+
+    public function clients()
+    {
+
+        return $this->hasMany(Client::class);
+    }
 }

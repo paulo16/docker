@@ -57,15 +57,15 @@
 
                         <ul class="submenu">
                             <li class="">
-                                <a href="#" class="dropdown-toggle">
+                                <a href="{{route('users.create')}}">
                                     <i class="menu-icon fa fa-caret-right"></i>
 
                                     AJOUTER
-                                    <b class="arrow fa fa-angle-down"></b>
+                                    <b class="arrow"></b>
                                 </a>
                             </li>
                             <li class="">
-                                <a href="buttons.html">
+                                <a href="{{route('users.index')}}">
                                     <i class="menu-icon fa fa-caret-right"></i>
                                     LISTER
                                 </a>
@@ -87,14 +87,14 @@
 
                         <ul class="submenu">
                             <li class="">
-                                <a href="tables.html">
+                                <a href="{{route('accessoires.create')}}">
                                     <i class="menu-icon fa fa-caret-right"></i>
                                     AJOUTER
                                 </a>
                             </li>
 
                             <li class="">
-                                <a href="jqgrid.html">
+                                <a href="{{route('accessoires.index')}}">
                                     <i class="menu-icon fa fa-caret-right"></i>
                                     LISTER
                                 </a>
@@ -116,7 +116,13 @@
 
                         <ul class="submenu">
                             <li class="">
-                                <a href="form-elements.html">
+                                <a href="{{route('services.create')}}">
+                                    <i class="menu-icon fa fa-caret-right"></i>
+                                    AJOUTER
+                                </a>
+                            </li>
+                            <li class="">
+                                <a href="{{route('services.index')}}">
                                     <i class="menu-icon fa fa-caret-right"></i>
                                     LISTE
                                 </a>
@@ -135,7 +141,7 @@
 
                         <ul class="submenu">
                             <li class="">
-                                <a href="profile.html">
+                                <a href="{{route('clients.create')}}">
                                     <i class="menu-icon fa fa-caret-right"></i>
                                     AJOUTER
                                 </a>
@@ -144,7 +150,7 @@
                             </li>
 
                             <li class="">
-                                <a href="inbox.html">
+                                <a href="{{route('clients.index')}}">
                                     <i class="menu-icon fa fa-caret-right"></i>
                                     LISTER
                                 </a>
@@ -173,7 +179,7 @@
                             <li class="">
                                 <a href="faq.html">
                                     <i class="menu-icon fa fa-caret-right"></i>
-                                     EFFECTUER
+                                    EFFECTUER
                                 </a>
 
                                 <b class="arrow"></b>

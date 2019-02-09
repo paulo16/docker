@@ -3,7 +3,8 @@
 namespace App;
 
 use App\User;
-use App\Produit;
+use App\Accessoire;
+use App\Service;
 use App\Client;
 
 use Illuminate\Database\Eloquent\Model;
@@ -22,9 +23,14 @@ class Intervention extends Model
         return $this->hasMany(Client::class);
     }
 
-    public function produits()
+    public function Accessoires()
     {
-        return $this->belongsToMany(Produit::class);
+        return $this->belongsToMany(Accessoire::class);
+    }
+
+    public function services()
+    {
+        return $this->hasMany(Service::class);
     }
 
 }
