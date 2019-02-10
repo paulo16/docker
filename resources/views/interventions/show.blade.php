@@ -2,14 +2,14 @@
 
 @section('head')
 <link rel="shortcut icon" href="{{asset('assets/admin/images/favicon_1.ico')}}">
-<title>Clients</title>
+<title>Accessoires</title>
 @endsection
 
-@section('racine_page','Clients')
-@section('page_name','Profil')
+@section('racine_page','Accessoires')
+@section('page_name','Description')
 
-@section('titre1_page','clients')
-@section('titre2_page','Profil')
+@section('titre1_page','accessoires')
+@section('titre2_page','Description')
 
 @section('content')
 
@@ -17,10 +17,10 @@
 
 <div class="page-header">
 	<h1>
-		Infos sur les clients
+		Infos sur les accessoires
 		<small>
 			<i class="ace-icon fa fa-angle-double-right"></i>
-			quelques informations sur le client 
+			quelques informations sur l' accessoire 
 		</small>
 	</h1>
 </div><!-- /.page-header -->
@@ -33,7 +33,11 @@
 				<div class="col-xs-12 col-sm-3 center">
 					<div>
 						<span class="profile-picture">
-							<img id="avatar" class="editable img-responsive editable-click editable-empty" alt="Alex's Avatar" src="{{asset('assets/images/avatars/profile-pic.jpg')}}">
+							@if ($accessoire->image)
+							<img id="avatar" class="editable img-responsive editable-click editable-empty" src="{{Storage::url($accessoire->image)}}" alt="Avatar">
+							@else
+							<img id="avatar" class="editable img-responsive editable-click editable-empty" src="{{asset('assets/images/gallery/pieces.jpg')}}" alt="Avatar">
+							@endif
 						</span>
 
 						<div class="space-4"></div>
@@ -43,7 +47,7 @@
 								<a href="#" class="user-title-label dropdown-toggle" data-toggle="dropdown">
 									<i class="ace-icon fa fa-circle light-green"></i>
 									&nbsp;
-									<span class="white">{{ $client->name}} &nbsp;&nbsp; {{$client->lastname }}</span>
+									<span class="white">{{ $accessoire->reference}}</span>
 								</a>
 
 								<ul class="align-left dropdown-menu dropdown-caret dropdown-lighter">
@@ -117,10 +121,10 @@
 
 					<div class="profile-user-info profile-user-info-striped">
 						<div class="profile-info-row">
-							<div class="profile-info-name"> Nom</div>
+							<div class="profile-info-name"> Reference</div>
 
 							<div class="profile-info-value">
-								<span class="editable editable-click" id="username">{{$client->name}}&nbsp;&nbsp;{{$client->lastname}} </span>
+								<span class="editable editable-click" id="username">{{$accessoire->reference}}</span>
 							</div>
 						</div>
 
@@ -135,10 +139,10 @@
 						</div>
 
 						<div class="profile-info-row">
-							<div class="profile-info-name"> Age </div>
+							<div class="profile-info-name"> Modele </div>
 
 							<div class="profile-info-value">
-								<span class="editable editable-click" id="age">###</span>
+								<span class="editable editable-click" id="age">{{$accessoire->modele}}</span>
 							</div>
 						</div>
 
@@ -146,15 +150,39 @@
 							<div class="profile-info-name"> Telephone </div>
 
 							<div class="profile-info-value">
-								<span class="editable editable-click" id="signup">{{$client->telephone}}</span>
+								<span class="editable editable-click" id="signup">{{$accessoire->telephone}}</span>
 							</div>
 						</div>
 
 						<div class="profile-info-row">
-							<div class="profile-info-name"> Email </div>
+							<div class="profile-info-name"> Serie </div>
 
 							<div class="profile-info-value">
-								<span class="editable editable-click" id="login">{{$client->email}}</span>
+								<span class="editable editable-click" id="login">{{$accessoire->serie}}</span>
+							</div>
+						</div>
+
+						<div class="profile-info-row">
+							<div class="profile-info-name"> Couleur </div>
+
+							<div class="profile-info-value">
+								<span class="editable editable-click" id="about">{{$accessoire->couleur}}</span>
+							</div>
+						</div>
+
+						<div class="profile-info-row">
+							<div class="profile-info-name"> Quantité </div>
+
+							<div class="profile-info-value">
+								<span class="editable editable-click" id="about">{{$accessoire->quantite}}</span>
+							</div>
+						</div>
+
+						<div class="profile-info-row">
+							<div class="profile-info-name"> Prix </div>
+
+							<div class="profile-info-value">
+								<span class="editable editable-click" id="about">{{$accessoire->prix}}</span>
 							</div>
 						</div>
 
@@ -162,7 +190,7 @@
 							<div class="profile-info-name"> Crée le </div>
 
 							<div class="profile-info-value">
-								<span class="editable editable-click" id="about">{{$client->created_at}}</span>
+								<span class="editable editable-click" id="about">{{$accessoire->created_at}}</span>
 							</div>
 						</div>
 					</div>

@@ -2,10 +2,10 @@
 
 @section('head')
 <link rel="shortcut icon" href="{{asset('assets/admin/images/favicon_1.ico')}}">
-<title>Clients</title>
+<title>Accessoires</title>
 @endsection
 
-@section('racine_page','Clients')
+@section('racine_page','Accessoires')
 @section('page_name','liste')
 
 @section('titre1_page','CLIENTS')
@@ -14,15 +14,16 @@
 @section('content')
 
 <br><br><br>
-<table id="clients-table" class="dataTables_wrapper form-inline no-footer">
+<table id="accessoires-table" class="dataTables_wrapper form-inline no-footer">
 	<thead>
 		<tr>
-			<th>Prénom</th>
-			<th>Nom</th>
-			<th>Télephone</th>
-			<th> Email </th>
-			<th> Crée Par </th>
-			<th> Crée le </th>
+			<th>Reference</th>
+			<th>Modèle</th>
+			<th>Serie</th>
+			<th> Couleur </th>
+			<th> Quantité </th>
+			<th> Prix Unitaire </th>
+			<th> crée le  </th>
 			<th>Action</th>
 		</tr>
 	</thead>
@@ -39,7 +40,7 @@
 	});
 
 	$(document).ready(function () {
-		$('#clients-table').DataTable({
+		$('#accessoires-table').DataTable({
 			"oLanguage": {
 				"sProcessing": "{{ Lang::get('datatable.sProcessing') }}",
 				"sSearch": "{{ Lang::get('datatable.sSearch') }}",
@@ -74,7 +75,7 @@
 				"text": "<i class='fa fa-database bigger-110 orange'></i> <span class='hidden'>Export to CSV</span>",
 				"className": "btn btn-white btn-primary btn-bold",
 				"exportOptions": {
-					columns: [0,1, 2, 3, 4, 5]
+					columns: [0,1, 2, 3, 4, 5,6]
 				}
 			},
 			{
@@ -82,25 +83,25 @@
 				"text": "<i class='fa fa-file-excel-o bigger-110 green'></i> <span class='hidden'>Export to Excel</span>",
 				"className": "btn btn-white btn-primary btn-bold",
 				"exportOptions": {
-					columns: [0,1, 2, 3, 4, 5]
+					columns: [0,1, 2, 3, 4, 5,6]
 				}
 			},
 			{
 				"extend": "pdf",
-				"title": "Application DOCKER liste des clients",
+				"title": "Application DOCKER liste des accessoires",
 				"text": "<i class='fa fa-file-pdf-o bigger-110 red'></i> <span class='hidden'>Export to PDF</span>",
 				"className": "btn btn-white btn-primary btn-bold",
 				"exportOptions": {
-					columns: [0,1, 2, 3, 4, 5]
+					columns: [0,1, 2, 3, 4, 5,6]
 				}
 			},
 			{
 				"extend": "print",
-				"title": "Application DOCKER liste des clients",
+				"title": "Application DOCKER liste des accessoires",
 				"text": "<i class='fa fa-print bigger-110 grey'></i> <span class='hidden'>Print</span>",
 				"className": "btn btn-white btn-primary btn-bold",
 				"exportOptions": {
-					columns: [0,1, 2, 3, 4, 5]
+					columns: [0,1, 2, 3, 4, 5,6]
 				},
 				autoPrint: false,
 				message: 'This print was produced using the Print button for DataTables'
@@ -109,15 +110,16 @@
 			processing: true,
 			serverSide: true,
 			ajax:{ 
-				url:'{!! route('clients.data') !!}'
+				url:'{!! route('accessoires.data') !!}'
 			},
 			data: {_token: '{{ csrf_token() }}'},
 			columns: [
-			{data: 'name', name: 'name'},
-			{data: 'lastname', name: 'lastname'},
-			{data: 'telephone', name: 'telephone'},
-			{data: 'email', name: 'email'},
-			{data: 'username', name: 'username'},
+			{data: 'reference', name: 'reference'},
+			{data: 'modele', name: 'modele'},
+			{data: 'serie', name: 'serie'},
+			{data: 'couleur', name: 'couleur'},
+			{data: 'quantite', name: 'quantite'},
+			{data: 'prix', name: 'prix'},
 			{data: 'created_at', name: 'created_at'},
 			{data: 'action', name: 'action', orderable: false, searchable: false}
 			],
@@ -125,7 +127,7 @@
 		});
 
 
-		 //////////////////// Delete Client ///////////////////////////////////
+		 //////////////////// Delete Accessoire ///////////////////////////////////
 
 		 $(document).on('click', '.delete', function () {
 		 	var id = $(this).data('id');
@@ -138,7 +140,7 @@
 		 		cancelButtonText: "{{ Lang::get('sweetalert.cancel_btn') }}",
 		 		closeOnConfirm: false
 		 	};
-		 	var url = '{{ route("clients.delete", ":id") }}';
+		 	var url = '{{ route("accessoires.delete", ":id") }}';
 		 	url = url.replace(':id', id);
 		 	swal(swal_ot, function () {
 		 		$.ajax({
@@ -147,7 +149,7 @@
 		 			data: {_token: '{{ csrf_token() }}'},
 		 		}).done(function () {
 		 			swal("{{ Lang::get('sweetalert.supprime') }}", "{{ Lang::get('sweetalert.sub_sup') }}", "success");
-		 			$('#clients-table').DataTable().ajax.reload(null, false);
+		 			$('#accessoires-table').DataTable().ajax.reload(null, false);
 		 			;
 		 		}).error(function () {
 		 			swal("{{ Lang::get('sweetalert.oops') }}", "{{ Lang::get('sweetalert.problem_server') }}", "error");

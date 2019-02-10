@@ -45,9 +45,9 @@ Route::group(['middleware' => ['web', 'auth']], function () {
 
 Route::group(['middleware' => ['web', 'auth']], function () {
 //Users
-	Route::post('services/delete/{id}','ServiceController@delete')->name('services.delete');
-	Route::get('services/data', 'ServiceController@data')->name('services.data');
-	Route::resource('services', 'ServiceController');
+	Route::post('interventions/delete/{id}','InterventionController@delete')->name('interventions.delete');
+	Route::get('interventions/data', 'InterventionController@data')->name('interventions.data');
+	Route::resource('interventions', 'InterventionController');
 });
 
 

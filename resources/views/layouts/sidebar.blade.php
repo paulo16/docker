@@ -35,9 +35,9 @@
 
                 <ul class="nav nav-list">
                     <li class="">
-                        <a href="index.html">
+                        <a href="{{route('accueil')}}">
                             <i class="menu-icon fa fa-tachometer"></i>
-                            <span class="menu-text"> Accuiel </span>
+                            <span class="menu-text"> ACCUEIL </span>
                         </a>
 
                         <b class="arrow"></b>
@@ -106,31 +106,6 @@
 
                     <li class="">
                         <a href="#" class="dropdown-toggle">
-                            <i class="menu-icon fa fa-pencil-square-o"></i>
-                            <span class="menu-text"> SERVICES </span>
-
-                            <b class="arrow fa fa-angle-down"></b>
-                        </a>
-
-                        <b class="arrow"></b>
-
-                        <ul class="submenu">
-                            <li class="">
-                                <a href="{{route('services.create')}}">
-                                    <i class="menu-icon fa fa-caret-right"></i>
-                                    AJOUTER
-                                </a>
-                            </li>
-                            <li class="">
-                                <a href="{{route('services.index')}}">
-                                    <i class="menu-icon fa fa-caret-right"></i>
-                                    LISTE
-                                </a>
-                            </li>
-                        </ul>
-                    </li>
-                    <li class="">
-                        <a href="#" class="dropdown-toggle">
                             <i class="menu-icon fa fa-tag"></i>
                             <span class="menu-text"> CLIENTS </span>
 
@@ -177,9 +152,17 @@
 
                         <ul class="submenu">
                             <li class="">
-                                <a href="faq.html">
+                                <a href="{{route('interventions.create')}}">
                                     <i class="menu-icon fa fa-caret-right"></i>
                                     EFFECTUER
+                                </a>
+
+                                <b class="arrow"></b>
+                            </li>
+                            <li class="">
+                                <a href="{{route('interventions.index')}}">
+                                    <i class="menu-icon fa fa-caret-right"></i>
+                                    LISTE
                                 </a>
 
                                 <b class="arrow"></b>
