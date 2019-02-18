@@ -9,15 +9,17 @@
 			</div>
 			<div class="modal-body">
 				<form>
+					<div class="row"> 
+						<div class="col-sm-6 col-sm-offset-3">
+							<span class="block input-icon input-icon-right">
+								<input type="text" id="accessoire" name="accessoire"  placeholder="Chercher un accessoire" class="width-100">
+								<i class="ace-icon fa fa-info-circle"></i>
+							</span>
+						</div>
+					</div>
 					<div class="form-group">
-						<label for="form-field-select-3">accessoire Reference</label>
-						<select class="form-control" id="accessoire_nom" name="accessoire_nom" data-placeholder="Choose a State..." >
-							<option value="">  </option>
-							<option value="AL">Alabama</option>
-							<option value="AK">Alaska</option>
-							<option value="AZ">Arizona</option>
-							<option value="AR">Arkansas</option>
-						</select>
+						<label for="reference" class="col-form-label">Reference:</label>
+						<input type="text" class="form-control" id="reference" name="reference">
 					</div>
 					<div class="form-group">
 						<label for="modele" class="col-form-label">Modele:</label>

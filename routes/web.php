@@ -24,6 +24,7 @@ Route::group(['middleware' => ['web', 'auth']], function () {
 //Clients
 	Route::post('clients/delete/{id}', 'ClientController@delete')->name('clients.delete');
 	Route::get('clients/data', 'ClientController@data')->name('clients.data');
+	Route::get('clients/data-client', 'ClientController@dataclient')->name('clients.dataclient');
 	Route::resource('clients', 'ClientController');
 });
 

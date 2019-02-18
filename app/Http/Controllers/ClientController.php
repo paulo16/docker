@@ -178,4 +178,28 @@ class ClientController extends Controller
 
         return response()->json($this->destroy($id));
     }
+
+
+    /**
+     * Show the form for editing the specified resource.
+     *     
+     * @param  \Illuminate\Http\Request $request
+     * @return \Illuminate\Http\Response
+     */
+
+    public function dataclient(Request $request){
+
+        Debugbar::info($request->get('client'));
+
+         $client = Client::where('name','LIKE',"%{$request->get('client')}%")
+                    ->orWhere('lastname','LIKE',"%{$request->get('client')}%")
+                    ->orWhere('telephone','LIKE',"%{$request->get('client')}%")
+                    ->orWhere('email','LIKE',"%{$request->get('client')}%")
+                    ->first();
+                    
+       Debugbar::info($client);
+
+        return response()->json($client);
+
+    }
 }
