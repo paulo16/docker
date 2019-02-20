@@ -10,16 +10,16 @@
 			<div class="modal-body">
 				<form>
 					<div class="form-group">
-						<label for="recipient-name" class="col-form-label">Nom:</label>
-						<input type="text" class="form-control" id="nom" name="nom">
+						<label for="nom_service" class="col-form-label">Nom:</label>
+						<input type="text" class="form-control" readonly id="nom_service" name="nom_service">
 					</div>
 					<div class="form-group">
-						<label for="message-text" id="description" class="col-form-label">Description:</label>
-						<textarea class="form-control" id="description" name="description"></textarea>
+						<label for="message-text" id="description_service" class="col-form-label">Description:</label>
+						<textarea class="form-control" id="description_service" name="description_service"></textarea>
 					</div>
 					<div class="form-group">
-						<label for="recipient-name" class="col-form-label">Prix:</label>
-						<input type="number" class="form-control" id="prix" name="prix">
+						<label for="prix_service" class="col-form-label">Prix:</label>
+						<input type="number" class="form-control" id="prix_service" name="prix_service">
 					</div>
 				</form>
 			</div>

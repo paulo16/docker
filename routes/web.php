@@ -37,7 +37,7 @@ Route::group(['middleware' => ['web', 'auth']], function () {
 
 
 Route::group(['middleware' => ['web', 'auth']], function () {
-//Users
+//Accessoire
 	Route::post('accessoires/delete/{id}','AccessoireController@delete')->name('accessoires.delete');
 	Route::get('accessoires/data', 'AccessoireController@data')->name('accessoires.data');
 	Route::resource('accessoires', 'AccessoireController');
@@ -45,7 +45,9 @@ Route::group(['middleware' => ['web', 'auth']], function () {
 
 
 Route::group(['middleware' => ['web', 'auth']], function () {
-//Users
+//Interventions
+	Route::get('interventions/data-accessoire', 'InterventionController@dataaccessoire')->name('interventions.dataaccessoire');
+	Route::get('interventions/data-moto', 'InterventionController@datamoto')->name('interventions.datamoto');
 	Route::post('interventions/delete/{id}','InterventionController@delete')->name('interventions.delete');
 	Route::get('interventions/data', 'InterventionController@data')->name('interventions.data');
 	Route::resource('interventions', 'InterventionController');

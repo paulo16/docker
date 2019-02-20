@@ -256,7 +256,7 @@
 
 <div class="widget-box">
 	<div class="widget-header widget-header-blue widget-header-flat">
-		<h4 class="widget-title lighter">New Item Wizard</h4>
+		<h4 class="widget-title lighter">Réaliser une Intervention</h4>
 	</div>
 
 	<div class="widget-body">
@@ -291,20 +291,21 @@
 					
 					<div class="step-pane active" data-step="1">
 						<h3 class="lighter block green">Détails sur le client</h3>
-						
-						<div class="row"> 
+						<form class="form-horizontal" id="form-client">
+							
+							<div class="row"> 
 
-							<div class="col-sm-3 col-sm-offset-4">
-								<span class="block input-icon input-icon-right">
-									<input type="text" id="client" name="client"  placeholder="Chercher un Client" class="width-100">
-									<i class="ace-icon fa fa-info-circle"></i>
-								</span>
+								<div class="col-sm-3 col-sm-offset-4">
+									<span class="block input-icon input-icon-right">
+										<input type="text" id="client" name="client"  placeholder="Chercher un Client" class="width-100">
+										<i class="ace-icon fa fa-info-circle"></i>
+									</span>
+								</div>
 							</div>
-						</div>
 
-						<div class="space-4"></div>
-						<div class="row">
-							<form class="form-horizontal" id="form-client">
+							<div class="space-4"></div>
+							<div class="row">
+
 								<div class="space-4"></div>
 								<div class="form-group">
 									<label class="control-label col-xs-12 col-sm-3 no-padding-right" for="name">Prénom:</label>
@@ -342,14 +343,15 @@
 										</div>
 									</div>
 								</div>
-							</form>
-						</div>
+								
+							</div>
+						</form>
 
 					</div>
 
 					<div class="step-pane" data-step="2">
 						<h3 class="lighter block green">Informations sur la Moto</h3>
-						<form class="form-horizontal" id="sample-form">
+						<form class="form-horizontal" id="form-moto">
 
 							<div class="row"> 
 								<div class="col-sm-3 col-sm-offset-4">
@@ -378,10 +380,10 @@
 								</div>
 							</div>
 							<div class="form-group">
-								<label class="control-label col-xs-12 col-sm-3 no-padding-right" for="modele">Modèle</label>
+								<label class="control-label col-xs-12 col-sm-3 no-padding-right" for="modele_moto">Modèle</label>
 								<div class="col-xs-12 col-sm-9">
 									<div class="clearfix">
-										<input type="text"  id="modele" name="modele"  class="col-xs-12 col-sm-6" placeholder=" ">
+										<input type="text"  id="modele_moto" name="modele_moto"  class="col-xs-12 col-sm-6" placeholder=" ">
 									</div>
 								</div>
 							</div>
@@ -567,8 +569,6 @@
 	</div><!-- /.widget-body -->
 </div>
 
-</div><!-- PAGE CONTENT ENDS -->
-
 @include('services.add')
 @include('interventions.accessoire')
 
@@ -596,7 +596,8 @@
 
 	$(document).ready(function () {
 
-        //Si on écrit dans le champ de recherche Ckient 
+
+        //Si on écrit dans le champ de recherche Client 
         $("#client").on("keyup", delay(function() {
         	$('#name').val("");
         	$('#lastname').val("");
@@ -632,6 +633,133 @@
 
 		},500)
         );
+        // fin recherche client 
+
+
+        //Si on écrit dans le champ de recherche Moto
+        $("#moto").on("keyup", delay(function() {
+        	$('#nom_moto').val("");
+        	$('#matricule').val("");
+        	$('#modele_moto').val("");
+        	$('#couleur').val("");
+
+        	var value = $(this).val();
+        	if (value) {
+        		$.ajax({
+        			url: '{!! route("interventions.datamoto") !!}',
+        			type: 'GET',
+        			data: {
+        				_token: '{{ csrf_token() }}',
+        				moto:value, 
+        			}
+        		}).done(function (moto) {
+        			if (moto){
+        				//console.log("Client trouvé");
+
+        				$('#nom_moto').val(moto.nom);
+        				$('#matricule').val(moto.matricule);
+        				$('#modele_moto').val(moto.modele);
+        				$('#couleur').val(moto.couleur);
+
+        			}else{
+        				console.log("Aucune Moto trouvée");
+					//console.log(JSON.stringify(client));
+				}
+
+			}).error(function () {
+				swal("{{ Lang::get('sweetalert.oops') }}", "{{ Lang::get('sweetalert.problem_server') }}", "error");
+			})}
+
+		},500)
+        );
+        // fin recherche Moto
+
+
+        //Si on écrit dans le champ de recherche Accessoire
+        $("#accessoire").on("keyup", delay(function() {
+        	$('#reference').val("");
+        	$('#modele_accessoire').val("");
+        	$('#serie').val("");
+        	$('#couleur_accessoire').val("");
+
+        	var value = $(this).val();
+        	if (value) {
+        		$.ajax({
+        			url: '{!! route("interventions.dataaccessoire") !!}',
+        			type: 'GET',
+        			data: {
+        				_token: '{{ csrf_token() }}',
+        				accessoire:value, 
+        			}
+        		}).done(function (accessoire) {
+        			if (accessoire){
+        				//console.log("Client trouvé");
+
+        				$('#reference').val(accessoire.reference);
+        				$('#modele_accessoire').val(accessoire.modele);
+        				$('#serie').val(accessoire.serie);
+        				$('#couleur_accessoire').val(accessoire.couleur);
+
+        			}else{
+        				console.log("Aucun Accessoire trouvé");
+					//console.log(JSON.stringify(client));
+				}
+
+			}).error(function () {
+				swal("{{ Lang::get('sweetalert.oops') }}", "{{ Lang::get('sweetalert.problem_server') }}", "error");
+			})}
+
+		},500)
+        );
+        // fin recherche Moto
+
+        $("#form-accessoire").submit(function( event ) {
+			//event.preventDefault();
+			var client , moto, accessoire, service;
+
+            //si le client existe pas la peine d'envoyer ses données entièrement 
+            if($("#client-id").val()){
+            	client={id:$("#client-id").val()};
+            }else{
+
+            	client={
+            		name: $('#name').val(),
+            		lastname: $('#lastname').val(),
+            		telephone: $('#telephone').val(),
+            		email: $('#email').val(),
+            	};
+            }
+
+            //Moto
+            if ($("#moto-id").val()) {
+            	moto={id :$("#moto-id").val()};
+            } else {
+            	moto={
+            		nom :$('#nom_moto').val(),
+            		matricule :$('#matricule').val(),
+            		modele :$('#modele_moto').val(),
+            		couleur :$('#couleur').val()
+            	};
+            }
+
+            //accessoire 
+            if ($("#accessoire-id").val()) {
+            	accessoire={id :$("#accessoire-id").val()};
+            } else {
+
+            	accessoire= {
+            		reference: $('#reference').val(),
+            		modele:$('#modele_accessoire').val(),
+            		serie:$('#serie').val(),
+            		couleur:$('#couleur_accessoire').val()
+            	}
+
+            }
+        });
+
+
+
+        // Début du wizard ou le formulaire en plusieurs étapes 
 
         $('#fuelux-wizard-container')
         .ace_wizard({
@@ -640,24 +768,20 @@
 				})
         .on('actionclicked.fu.wizard' , function(e, info){
         	if(info.step == 1) {
-        		e.preventDefault();
+        		//e.preventDefault();
+        		$("#nom_service").val(servicename());
         	}
         })
 		//.on('changed.fu.wizard', function() {
 		//})
 		.on('finished.fu.wizard', function(e) {
-			bootbox.dialog({
-				message: "Thank you! Your information was successfully saved!", 
-				buttons: {
-					"success" : {
-						"label" : "OK",
-						"className" : "btn-sm btn-primary"
-					}
-				}
-			});
+
+
 		}).on('stepclick.fu.wizard', function(e){
 			//e.preventDefault();//this will prevent clicking and selecting steps
+
 		});
+
 
 		/**$('#interventions-table').DataTable({
 			"oLanguage": {
@@ -806,6 +930,24 @@ function delay(callback, ms) {
 	};
 }
 
+function servicename() {
+	var today = new Date();
+	var dd = today.getDate();
+	var mm = today.getMonth() + 1; //January is 0!
+	var hour = today.getHours(); 
+	var min = today.getMinutes(); 
+	var sec = today.getSeconds();
+
+	var yyyy = today.getFullYear();
+	if (dd < 10) {
+		dd = '0' + dd;
+	} 
+	if (mm < 10) {
+		mm = '0' + mm;
+	} 
+	var service = "SERVICE-"+dd+'-'+mm+'-'+yyyy+'-'+hour+'-'+min+'-'+sec;
+	return service ;
+}
 
 </script>
 

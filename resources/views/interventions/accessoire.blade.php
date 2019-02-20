@@ -7,8 +7,8 @@
 					<span aria-hidden="true">&times;</span>
 				</button>
 			</div>
-			<div class="modal-body">
-				<form>
+			<form id="form-accessore">
+				<div class="modal-body">
 					<div class="row"> 
 						<div class="col-sm-6 col-sm-offset-3">
 							<span class="block input-icon input-icon-right">
@@ -22,8 +22,8 @@
 						<input type="text" class="form-control" id="reference" name="reference">
 					</div>
 					<div class="form-group">
-						<label for="modele" class="col-form-label">Modele:</label>
-						<input type="text" class="form-control" id="modele" name="modele">
+						<label for="modele_accessoire" class="col-form-label">Modele:</label>
+						<input type="text" class="form-control" id="modele_accessoire" name="modele_accessoire">
 					</div>
 					<div class="form-group">
 						<label for="serie" class="col-form-label">Serie:</label>
@@ -31,18 +31,20 @@
 					</div>
 					<div class="form-group">
 						<label for="couleur" class="col-form-label">Couleur:</label>
-						<input type="text" class="form-control" id="couleur" name="couleur">
+						<input type="text" class="form-control" id="couleur_accessoire" name="couleur_accessoire">
 					</div>
+					<!--
 					<div class="form-group">
 						<label for="quantite" class="col-form-label">Quantité:</label>
 						<input type="text" class="form-control" id="quantite" name="quantite">
-					</div>
-				</form>
-			</div>
-			<div class="modal-footer">
-				<button type="button" class="btn btn-secondary" data-dismiss="modal">Fermer</button>
-				<button type="button" class="btn btn-primary">Envoyer</button>
-			</div>
+					</div>-->
+
+				</div>
+				<div class="modal-footer">
+					<button type="button" class="btn btn-secondary" data-dismiss="modal">Fermer</button>
+					<button type="submit" class="btn btn-primary">Envoyer</button>
+				</div>
+			</form>
 		</div>
 	</div>
 </div>

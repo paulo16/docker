@@ -1,6 +1,9 @@
 <?php
 
 namespace App\Http\Controllers;
+
+use App\Accessoire;
+use App\Moto;
 use App\Intervention;
 use Illuminate\Http\Request;
 use Auth;
@@ -57,18 +60,7 @@ class InterventionController extends Controller
         $moto->couleur= $request->get('couleur') ? $request->get('couleur') : '';
         $moto->modele= $request->get('modele') ? $request->get('modele') : '';
 
-
-
-        $intervention->name= $request->get('name') ? $request->get('name') : '';
-        $intervention= new Intervention();
-        $intervention->name= $request->get('name') ? $request->get('name') : '';
-        $intervention->telephone= $request->get('telephone') ? $request->get('telephone') : '';
-        $intervention->lastname= $request->get('lastname') ? $request->get('lastname') : '';
-        $intervention->email= $request->get('email') ? $request->get('email') : '';
-        $intervention->password= $request->get('password') ? bcrypt($request->get('password')) : ''; 
-        if ($request->hasFile('photo')) {
-            $intervention->photo = $request->file('photo')->store('public/avatars');
-        }
+        
 
 
         return $intervention->save()? redirect()->route('interventions.index'): 
@@ -208,5 +200,53 @@ class InterventionController extends Controller
     public function delete(Request $request,$id){
 
         return response()->json($this->destroy($id));
+    }
+
+
+    /**
+     * Get data Moto.
+     *     
+     * @param  \Illuminate\Http\Request $request
+     * @return \Illuminate\Http\Response
+     */
+
+    public function datamoto(Request $request){
+
+        Debugbar::info($request->get('moto'));
+
+        $moto = Moto::where('nom','LIKE',"%{$request->get('moto')}%")
+        ->orWhere('matricule','LIKE',"%{$request->get('moto')}%")
+        ->orWhere('modele','LIKE',"%{$request->get('moto')}%")
+        ->orWhere('couleur','LIKE',"%{$request->get('moto')}%")
+        ->first();
+
+        Debugbar::info($moto);
+
+        return response()->json($moto);
+
+    }
+
+
+    /**
+     * Get data Accessoire.
+     *     
+     * @param  \Illuminate\Http\Request $request
+     * @return \Illuminate\Http\Response
+     */
+
+    public function dataaccessoire(Request $request){
+
+        Debugbar::info($request->get('accessoire'));
+
+        $accessoire = Accessoire::where('reference','LIKE',"%{$request->get('accessoire')}%")
+        ->orWhere('modele','LIKE',"%{$request->get('accessoire')}%")
+        ->orWhere('serie','LIKE',"%{$request->get('accessoire')}%")
+        ->orWhere('couleur','LIKE',"%{$request->get('accessoire')}%")
+        ->first();
+
+        Debugbar::info($accessoire);
+
+        return response()->json($accessoire);
+
     }
 }
