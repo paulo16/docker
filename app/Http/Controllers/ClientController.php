@@ -191,15 +191,31 @@ class ClientController extends Controller
 
         Debugbar::info($request->get('client'));
 
-         $client = Client::where('name','LIKE',"%{$request->get('client')}%")
-                    ->orWhere('lastname','LIKE',"%{$request->get('client')}%")
-                    ->orWhere('telephone','LIKE',"%{$request->get('client')}%")
-                    ->orWhere('email','LIKE',"%{$request->get('client')}%")
-                    ->first();
-                    
-       Debugbar::info($client);
+        $client = Client::where('name','LIKE',"%{$request->get('client')}%")
+        ->orWhere('lastname','LIKE',"%{$request->get('client')}%")
+        ->orWhere('telephone','LIKE',"%{$request->get('client')}%")
+        ->orWhere('email','LIKE',"%{$request->get('client')}%")
+        ->first();
+
+        Debugbar::info($client);
 
         return response()->json($client);
 
+    }
+
+
+    public function createclientwizard(Request $request)
+    {
+        //dd($request);
+
+        //Debugbar::info($request->get('client') );
+        $clt =$request->get('client');
+        $client= new Client;
+        $client->name= $clt['name'] ? $clt['name'] : '';
+        $client->lastname= $clt['lastname'] ? $clt['lastname'] : '';
+        $client->email= $clt['email'] ? $clt['email'] : '';
+        $client->telephone= $clt['telephone'] ? $clt['telephone'] : ''; 
+        //Debugbar::info($request);
+        return $client->save()?$client :null ;
     }
 }

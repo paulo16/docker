@@ -7,7 +7,8 @@
 					<span aria-hidden="true">&times;</span>
 				</button>
 			</div>
-			<form id="form-accessore">
+			
+				<input type="text" id="accessoire-id" name="accessoire-id" hidden="1">
 				<div class="modal-body">
 					<div class="row"> 
 						<div class="col-sm-6 col-sm-offset-3">
@@ -33,6 +34,10 @@
 						<label for="couleur" class="col-form-label">Couleur:</label>
 						<input type="text" class="form-control" id="couleur_accessoire" name="couleur_accessoire">
 					</div>
+					<div class="form-group">
+						<label for="prix_accessoire" class="col-form-label">Prix:</label>
+						<input type="number" class="form-control" id="prix_accessoire" name="prix_accessoire">
+					</div>
 					<!--
 					<div class="form-group">
 						<label for="quantite" class="col-form-label">Quantité:</label>
@@ -42,9 +47,9 @@
 				</div>
 				<div class="modal-footer">
 					<button type="button" class="btn btn-secondary" data-dismiss="modal">Fermer</button>
-					<button type="submit" class="btn btn-primary">Envoyer</button>
+					<button  id="envoyer-accessoire" class="btn btn-primary">Envoyer</button>
 				</div>
-			</form>
+			
 		</div>
 	</div>
 </div>

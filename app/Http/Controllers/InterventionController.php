@@ -249,4 +249,104 @@ class InterventionController extends Controller
         return response()->json($accessoire);
 
     }
+
+    public function createmotowizard(Request $request)
+    {
+        //dd($request);
+
+        //Debugbar::info($request->get('client') );
+        $mt =$request->get('moto');
+        $moto= new Moto;
+        $moto->nom= $mt['nom'] ? $mt['nom'] : '';
+        $moto->matricule= $mt['matricule'] ? $mt['matricule'] : '';
+        $moto->modele= $mt['modele'] ? $mt['modele'] : '';
+        $moto->couleur= $mt['couleur'] ? $mt['couleur'] : ''; 
+        //Debugbar::info($request);
+        return $moto->save() ? $moto :null ;
+    }
+
+    public function createaccessoirewizard(Request $request)
+    {
+        //dd($request);
+
+        Debugbar::info($request->get('client') );
+        if (!$request->get('accessoire_id')) {
+            $mt =$request->get('accessoire');
+            $accessoire= new Accessoire;
+            $accessoire->reference= $mt['reference'] ? $mt['reference'] : '';
+            $accessoire->serie= $mt['serie'] ? $mt['serie'] : '';
+            $accessoire->modele= $mt['modele'] ? $mt['modele'] : '';
+            $accessoire->couleur= $mt['couleur'] ? $mt['couleur'] : ''; 
+            $accessoire->prix= $mt['prix'] ? $mt['prix'] : ''; 
+        //Debugbar::info($request);
+            if ($accessoire->save()) {
+
+                $intervention = new Intervention;
+                $intervention->client_id = $request->get('client');
+                $intervention->user_id = Auth::user()->id;
+            }
+        }else{
+            $accessoire = Accessoire::find($request->get('accessoire_id'));
+            $intervention = new Intervention;
+            $intervention->client_id = $request->get('client');
+            $intervention->user_id = Auth::user()->id;
+        }
+
+        if($intervention->save()){
+            $intervention->accessoires()->attach($accessoire->id);
+        }
+
+        return    $interventions = \DB::table('interventions')
+        ->leftjoin('users', 'users.id', '=', 'interventions.user_id')
+        ->leftjoin('clients', 'clients.id', '=', 'interventions.client_id')
+        ->leftjoin('accessoire_intervention', 'accessoire_intervention.intervention_id', '=','interventions.id')
+        ->leftjoin('accessoires', 'accessoires.id', '=', 'accessoire_intervention.accessoire_id')
+        ->where('clients.id', '=', $request->get('client'))
+        ->select('clients.name' ,'accessoires.reference','accessoires.prix','accessoires.created_at')
+        ->orderBy('accessoires.created_at', 'desc')
+        ->get()
+        ->toArray();
+
+    }
+
+
+    public function dataclient(Request $request){
+
+        $interventions = DB::table('interventions')
+        ->leftjoin('users', 'users.id', '=', 'interventions.user_id')
+        ->leftjoin('clients', 'clients.id', '=', 'interventions.client_id')
+        ->leftjoin('accessoire_intervention', 'accessoire_intervention.intervention_id', '=','interventions.id')
+        ->leftjoin('accessoires', 'accessoires.id', '=', 'accessoire_intervention.accessoire_id')
+        ->where('clients.id', '=', 1)
+        ->select('clients.name as name' ,'accessoires.reference as produit','accessoires.prix','accessoires.created_at')
+        ->orderBy('accessoires.created_at', 'desc') ;
+
+        $datatables = Datatables::of($interventions)
+        ->addColumn('type',function ($model) {
+            return "Accessoire";
+        })
+        ->addColumn('action', function ($model) {
+
+            $url_edit='<a href=":url" class="green" ><i class="ace-icon fa fa-pencil bigger-130"></i></a>';
+            $url_show='<a href=":url" class="blue" ><i class="ace-icon fa fa-search-plus bigger-130"></i></a>';
+            $delete='<a data-id=":id" class="red delete"><i class="ace-icon fa fa-trash-o bigger-130 "></i></a>';
+
+            $show = route('clients.show', 1);
+            $edit = route('clients.edit', 1);
+            $del =str_replace(":id",1,$delete); 
+
+            $url_show =str_replace(":url",$show,$url_show);
+            $url_edit=str_replace(":url",$edit,$url_edit);
+
+            $action = '<div class="hidden-sm hidden-xs action-buttons">'.$url_show.'&nbsp;'.$url_edit.'&nbsp;'.$del.'<div>';
+            return $action;
+        }) 
+        ->editColumn('created_at', function ($model){           
+            return $model->created_at ? with(new Carbon($model->created_at))->format('d/m/Y') : '';
+        });
+
+        return $datatables->make(true);
+    }
+
+    
 }
